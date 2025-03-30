@@ -8,16 +8,19 @@ import javafx.scene.control.Label;
 public class MenuController {
 
     @FXML
-    private Label SudokuGameLabe;
+    private Button ExitButtom;
 
     @FXML
-    private Button Iniciar;
+    private Button InstructionsButtom;
 
     @FXML
-    private Button Reiniciar;
+    private Button RestartButtom;
 
     @FXML
-    private Button Salir;
+    private Button StartButtom;
+
+    @FXML
+    private Label SudokuGameLabel;
 
     @FXML
     void onActionExitButtom(ActionEvent event) {

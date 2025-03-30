@@ -7,27 +7,27 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="443.0" style="-fx-background-color: linear-gradient(to bottom, #ADD8E6, #FFFFFF);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku_game.controllers.MenuController">
    <children>
-      <Label id="SudokuGameLabel" layoutX="126.0" layoutY="57.0" text="Sudoku Game">
+      <Label fx:id="SudokuGameLabel" layoutX="126.0" layoutY="57.0" text="Sudoku Game">
          <font>
             <Font name="Berlin Sans FB" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="Iniciar" layoutX="184.0" layoutY="116.0" mnemonicParsing="false" onAction="#onActionStartButtom" text="Iniciar">
+      <Button fx:id="StartButtom" layoutX="184.0" layoutY="116.0" mnemonicParsing="false" onAction="#onActionStartButtom" text="Iniciar">
          <font>
             <Font name="Book Antiqua" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="Reiniciar" layoutX="174.0" layoutY="173.0" mnemonicParsing="false" onAction="#onActionRestartButtom" text="Reiniciar">
+      <Button fx:id="RestartButtom" layoutX="174.0" layoutY="173.0" mnemonicParsing="false" onAction="#onActionRestartButtom" text="Reiniciar">
          <font>
             <Font name="Book Antiqua" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="Salir" layoutX="191.0" layoutY="231.0" mnemonicParsing="false" onAction="#onActionExitButtom" text="Salir">
+      <Button fx:id="ExitButtom" layoutX="191.0" layoutY="231.0" mnemonicParsing="false" onAction="#onActionExitButtom" text="Salir">
          <font>
             <Font name="Book Antiqua" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="395.0" layoutY="14.0" mnemonicParsing="false" text="?">
+      <Button fx:id="InstructionsButtom" layoutX="395.0" layoutY="14.0" mnemonicParsing="false" text="?">
          <font>
             <Font name="Bookman Old Style" size="18.0" />
          </font>
