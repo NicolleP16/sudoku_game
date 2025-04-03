@@ -1,9 +1,15 @@
 package com.example.sudoku_game.controllers;
 
+import com.example.sudoku_game.views.GameView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class MenuController {
 
@@ -24,7 +30,8 @@ public class MenuController {
 
     @FXML
     void onActionExitButtom(ActionEvent event) {
-
+        Stage stage = (Stage) ExitButtom.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -34,6 +41,12 @@ public class MenuController {
 
     @FXML
     void onActionStartButtom(ActionEvent event) {
+        Stage stage = (Stage) StartButtom.getScene().getWindow();
+        new GameView(stage);
+    }
+
+    @FXML
+    void onActionInstructionsButtom(ActionEvent event) {
 
     }
 
