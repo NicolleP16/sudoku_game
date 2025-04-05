@@ -1,19 +1,16 @@
 package com.example.sudoku_game.models;
 import com.example.sudoku_game.interfaces.ValidationInterface;
-import com.example.sudoku_game.utils.GameTimer;
 
 /**
  * Modelo que contiene la lógica del juego Sudoku
  */
 public class LogicModel {
     private BoardModel board;
-    private GameTimer timer;
     private ValidationInterface validator;
     private boolean gameInProgress;
 
     public LogicModel() {
         this.board = new BoardModel();
-        this.timer = new GameTimer();
         this.gameInProgress = false;
     }
 
@@ -23,8 +20,6 @@ public class LogicModel {
 
     public void startNewGame() {
         board.generateBoard();
-        timer.reset();
-        timer.start();
         gameInProgress = true;
     }
 
@@ -46,7 +41,6 @@ public class LogicModel {
     }
 
     private void gameCompleted() {
-        timer.stop();
         gameInProgress = false;
     }
 
@@ -90,16 +84,12 @@ public class LogicModel {
         return board;
     }
 
-    public GameTimer getTimer() {
-        return timer;
-    }
 
     public boolean isGameInProgress() {
         return gameInProgress;
     }
 
     public void endGame() {
-        timer.stop();
         gameInProgress = false;
     }
 }

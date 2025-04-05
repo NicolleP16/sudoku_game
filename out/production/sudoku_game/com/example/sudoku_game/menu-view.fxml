@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="443.0" style="-fx-background-color: linear-gradient(to bottom, #ADD8E6, #FFFFFF);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku_game.controllers.MenuController">
    <children>
-      <Label fx:id="SudokuGameLabel" layoutX="126.0" layoutY="57.0" text="Sudoku Game">
+      <Label id="SudokuGameLabel" fx:id="SudokuGameLabel" layoutX="126.0" layoutY="57.0" text="Sudoku Game">
          <font>
             <Font name="Berlin Sans FB" size="32.0" />
          </font>
@@ -27,7 +27,7 @@
             <Font name="Book Antiqua" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="InstructionsButtom" layoutX="395.0" layoutY="14.0" mnemonicParsing="false" text="?">
+      <Button fx:id="InstructionsGame" layoutX="395.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionInstructionsButtom" text="?">
          <font>
             <Font name="Bookman Old Style" size="18.0" />
          </font>
