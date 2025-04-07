@@ -1,6 +1,8 @@
 package com.example.sudoku_game.controllers;
 
 import com.example.sudoku_game.views.GameView;
+import com.example.sudoku_game.views.InstructionsView;
+import com.example.sudoku_game.views.MenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,9 +48,10 @@ public class MenuController {
     }
 
     @FXML
-    void onActionInstructionsButton(ActionEvent event) {
-
+    void onActionInstructionsButton(ActionEvent event) throws IOException {
+        new InstructionsView();
     }
+
 
 }
 
