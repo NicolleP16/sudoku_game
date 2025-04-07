@@ -41,6 +41,14 @@ public class GameController {
         alert.showAndWait();
     }
 
+    private void showWinAlert() {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("¡Felicidades!");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Has completado correctamente el Sudoku!");
+        alert.showAndWait();
+    }
+
     public void populateBoard(GridPane boardGrid) {
         boardGrid.getChildren().clear();
         for (int row = 0; row < model.getBoardSize(); row++) {
@@ -77,6 +85,9 @@ public class GameController {
                             if (validator.isValidMove(model, finalRow, finalCol, intValue)) {
                                 model.setCell(finalRow, finalCol, intValue);
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: black;");
+                                if (model.isBoardComplete()) {
+                                    showWinAlert();
+                                }
                             } else {
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: red; -fx-border-width: 2px;");
                                 showInvalidMoveAlert();
