@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="386.0" prefWidth="349.0" style="-fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku_game.controllers.InstructionsController">
+    <children>
+        <Label layoutX="38.0" layoutY="21.0" style="-fx-font-family: 'Book Antiqua'; -fx-font-size: 26px; -fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="Instrucciones del Juego">
+            <font>
+                <Font name="Book Antiqua" size="24.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="33.0" layoutY="63.0" lineSpacing="5.0" prefHeight="271.0" prefWidth="289.0" style="-fx-font-family: 'Bookman Old Style'; -fx-font-size: 15px; -fx-text-fill: #444444; -fx-background-color: #ffffff; -fx-border-color: #dcdcdc; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.5, 0, 1);" text="El juego consta de una cuadrícula de 6x6, que está dividida en bloques de 2x3.&#10;Cada fila debe contener los números del 1 al 6 sin repetir.&#10;Cada columna también debe tener los números del 1 al 6 sin repetirse.&#10;Cada bloque 2x3 debe tener los números del 1 al 6 sin repetir.&#10;Las pistas iniciales no se pueden modificar." wrapText="true">
+            <font>
+                <Font name="Bookman Old Style" size="14.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="closeButton" layoutX="147.0" layoutY="342.0" onAction="#onActionCloseButton" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 6px;" text="Cerrar" />
+        
+    </children>
+</AnchorPane>
