@@ -14,39 +14,39 @@ import java.io.IOException;
 public class MenuController {
 
     @FXML
-    private Button ExitButtom;
+    private Button ExitButton;
 
     @FXML
-    private Button InstructionsButtom;
+    private Button InstructionsButton;
 
     @FXML
-    private Button RestartButtom;
+    private Button RestartButton;
 
     @FXML
-    private Button StartButtom;
+    private Button StartButton;
 
     @FXML
     private Label SudokuGameLabel;
 
     @FXML
-    void onActionExitButtom(ActionEvent event) {
-        Stage stage = (Stage) ExitButtom.getScene().getWindow();
+    void onActionExitButton(ActionEvent event) {
+        Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onActionRestartButtom(ActionEvent event) {
+    void onActionRestartButton(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionStartButtom(ActionEvent event) {
-        Stage stage = (Stage) StartButtom.getScene().getWindow();
+    void onActionStartButton(ActionEvent event) {
+        Stage stage = (Stage) StartButton.getScene().getWindow();
         new GameView(stage);
     }
 
     @FXML
-    void onActionInstructionsButtom(ActionEvent event) {
+    void onActionInstructionsButton(ActionEvent event) {
 
     }
 
