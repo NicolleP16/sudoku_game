@@ -15,7 +15,7 @@ public class MenuView extends Stage {
                 Main.class.getResource("menu-view.fxml")
         );
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 443, 328);
+        Scene scene = new Scene(root, 373, 247);
         this.setTitle("Menú");
         this.setScene(scene);
     }

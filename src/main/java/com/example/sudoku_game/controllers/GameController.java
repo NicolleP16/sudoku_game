@@ -20,6 +20,11 @@ public class GameController {
         model.generateBoard();
     }
 
+    public void onActionRestartGame() {
+        model.generateBoard();
+        populateBoard(view.getBoardGrid());
+    }
+
     public void populateBoard(GridPane boardGrid) {
         boardGrid.getChildren().clear();
         for (int row = 0; row < model.getBoardSize(); row++) {
