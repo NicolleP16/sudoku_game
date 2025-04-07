@@ -31,7 +31,7 @@ public class GameView {
         RestartButton.setOnAction(e -> controller.onActionRestartGame());
 
         root.getChildren().addAll(boardGrid, RestartButton);
-        Scene scene = new Scene(root, 443, 430);
+        Scene scene = new Scene(root, 370, 320);
         stage.setTitle("Sudoku");
         stage.setScene(scene);
     }

@@ -55,7 +55,7 @@ public class GameController {
             for (int col = 0; col < model.getBoardSize(); col++) {
                 TextField cell = new TextField();
                 cell.setPrefWidth(40);
-                cell.setPrefHeight(60);
+                cell.setPrefHeight(40);
                 cell.setStyle("-fx-font-size: 18px; -fx-alignment: center; -fx-border-color: black;");
 
                 int boxRow = row / 2;
