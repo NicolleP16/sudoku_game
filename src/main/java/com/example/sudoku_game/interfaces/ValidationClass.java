@@ -4,14 +4,21 @@ import com.example.sudoku_game.models.BoardModel;
 import com.example.sudoku_game.models.CellModel;
 
 /**
- * Implementación estándar de la interfaz de validación para el Sudoku 6x6
+        * Implementación estándar de la interfaz de validación para el Sudoku 6x6.
+ * Proporciona la lógica necesaria para validar movimientos y verificar el estado
+ * del tablero según las reglas del Sudoku 6x6 con cajas de 2x3.
  */
 public class ValidationClass implements ValidationInterface {
 
+    /* Tamaño del tablero, altura y anchura de cada caja del sudoku. */
     private static final int BOARD_SIZE = 6;
     private static final int BOX_HEIGHT = 2;
     private static final int BOX_WIDTH = 3;
 
+    /**
+     * Implementación que verifica si un valor se puede colocar en una posición específica
+     * comprobando filas, columnas y cajas de 2x3.
+     */
     @Override
     public boolean isValidMove(BoardModel board, int row, int col, int value) {
         // Si el valor es 0 (celda vacía), siempre es válido
@@ -68,6 +75,11 @@ public class ValidationClass implements ValidationInterface {
         return true;
     }
 
+
+    /**
+     * Implementación que verifica si el tablero completo es válido,
+     * asegurando que todas las celdas estén llenas y cumplan las reglas del Sudoku.
+     */
     @Override
     public boolean isValidBoard(BoardModel board) {
         // Verificar que cada celda tenga un valor válido
@@ -100,7 +112,10 @@ public class ValidationClass implements ValidationInterface {
 
         return true;
     }
-
+    /**
+     * Implementación que detecta si una celda específica tiene conflictos
+     * con otras celdas según las reglas del Sudoku.
+     */
     @Override
     public boolean hasConflict(BoardModel board, int row, int col) {
         CellModel cell = board.getCell(row, col);
@@ -138,7 +153,12 @@ public class ValidationClass implements ValidationInterface {
     }
 
     /**
-     * Método auxiliar para verificar si una columna contiene el valor especificado
+     * Método auxiliar para verificar si una columna contiene el valor especificado.
+     *
+     * @param board El tablero de Sudoku
+     * @param col Índice de la columna a verificar (0-5)
+     * @param value Valor a buscar en la columna (1-6)
+     * @return {@code true} si el valor existe en la columna, {@code false} en caso contrario
      */
     private boolean colContains(BoardModel board, int col, int value) {
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -150,7 +170,13 @@ public class ValidationClass implements ValidationInterface {
     }
 
     /**
-     * Método auxiliar para verificar si una caja contiene el valor especificado
+     * Método auxiliar para verificar si una caja contiene el valor especificado.
+     *
+     * @param board El tablero de Sudoku
+     * @param boxRow Índice de la fila de la caja (0-2)
+     * @param boxCol Índice de la columna de la caja (0-1)
+     * @param value Valor a buscar en la caja (1-6)
+     * @return {@code true} si el valor existe en la caja, {@code false} en caso contrario
      */
     private boolean boxContains(BoardModel board, int boxRow, int boxCol, int value) {
         int rowStart = boxRow * BOX_HEIGHT;
@@ -167,7 +193,11 @@ public class ValidationClass implements ValidationInterface {
     }
 
     /**
-     * Verifica si todas las restricciones de Sudoku se cumplen
+     * Verifica si todas las restricciones de Sudoku se cumplen en el tablero.
+     * Comprueba que no haya duplicados en filas, columnas y cajas.
+     *
+     * @param board El tablero de Sudoku a verificar
+     * @return {@code true} si todas las restricciones se cumplen, {@code false} en caso contrario
      */
     public boolean checkAllConstraints(BoardModel board) {
         // Verificar filas
