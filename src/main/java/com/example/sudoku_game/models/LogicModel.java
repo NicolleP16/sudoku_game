@@ -62,24 +62,6 @@ public class LogicModel {
         }
     }
 
-    public boolean getHint() {
-        for (int row = 0; row < board.getBoardSize(); row++) {
-            for (int col = 0; col < board.getBoardSize(); col++) {
-                CellModel cell = board.getCell(row, col);
-                if (cell.isEmpty()) {
-                    for (int num = 1; num <= 6; num++) {
-                        if (validator.isValidMove(board, row, col, num)) {
-                            cell.setValue(num);
-                            cell.setHighlighted(true);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public BoardModel getBoard() {
         return board;
     }
