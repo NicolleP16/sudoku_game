@@ -24,16 +24,25 @@ public class ValidationClass implements ValidationInterface {
             return false;
         }
 
+        // Guardar el valor actual y establecerlo temporalmente a 0
+        // Esto permite validar correctamente al reemplazar un valor existente
+        int currentValue = board.getCell(row, col).getValue();
+        board.getCell(row, col).setValue(0);
+
         // Verificar si el valor ya existe en la misma fila
         for (int c = 0; c < BOARD_SIZE; c++) {
-            if (c != col && board.getCell(row, c).getValue() == value) {
+            if (board.getCell(row, c).getValue() == value) {
+                // Restaurar el valor original antes de retornar
+                board.getCell(row, col).setValue(currentValue);
                 return false;
             }
         }
 
         // Verificar si el valor ya existe en la misma columna
         for (int r = 0; r < BOARD_SIZE; r++) {
-            if (r != row && board.getCell(r, col).getValue() == value) {
+            if (board.getCell(r, col).getValue() == value) {
+                // Restaurar el valor original antes de retornar
+                board.getCell(row, col).setValue(currentValue);
                 return false;
             }
         }
@@ -44,11 +53,16 @@ public class ValidationClass implements ValidationInterface {
 
         for (int r = boxRowStart; r < boxRowStart + BOX_HEIGHT; r++) {
             for (int c = boxColStart; c < boxColStart + BOX_WIDTH; c++) {
-                if ((r != row || c != col) && board.getCell(r, c).getValue() == value) {
+                if (board.getCell(r, c).getValue() == value) {
+                    // Restaurar el valor original antes de retornar
+                    board.getCell(row, col).setValue(currentValue);
                     return false;
                 }
             }
         }
+
+        // Restaurar el valor original antes de retornar
+        board.getCell(row, col).setValue(currentValue);
 
         // Si pasa todas las verificaciones, el movimiento es válido
         return true;
