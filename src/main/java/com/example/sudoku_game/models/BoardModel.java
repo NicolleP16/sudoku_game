@@ -245,4 +245,35 @@ public class BoardModel {
     public void setValidator(ValidationInterface validator) {
         this.validator = validator;
     }
+
+    public boolean getHint() {
+        int emptyCount = 0;
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                if (board[row][col].getValue() == 0) {
+                    emptyCount++;
+                }
+            }
+        }
+
+        if (emptyCount == 1) {
+            return false;
+        }
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                CellModel cell = board[row][col];
+                if (cell.getValue() == 0) {
+                    int correctValue = solution[row][col];
+                    cell.setValue(correctValue);
+                    cell.setHighlighted(true);
+                    return true;
+                }
+            }
+        }
+
+
+        return false;
+    }
 }
