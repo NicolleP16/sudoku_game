@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.example.sudoku_game.controllers.GameController;
@@ -30,7 +31,14 @@ public class GameView {
         Button RestartButton = new Button("Reiniciar");
         RestartButton.setOnAction(e -> controller.onActionRestartGame());
 
-        root.getChildren().addAll(boardGrid, RestartButton);
+        Button HintButton = new Button("Pista");
+        HintButton.setOnAction(e -> controller.onActionHintButton());
+
+        HBox buttonsBox = new HBox(10); // Espacio horizontal entre botones
+        buttonsBox.setAlignment(Pos.CENTER);
+        buttonsBox.getChildren().addAll(RestartButton, HintButton);
+
+        root.getChildren().addAll(boardGrid, buttonsBox);
         Scene scene = new Scene(root, 370, 320);
         stage.setTitle("Sudoku");
         stage.setScene(scene);

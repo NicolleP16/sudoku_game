@@ -25,6 +25,19 @@ public class GameController {
         populateBoard(view.getBoardGrid());
     }
 
+    public void onActionHintButton() {
+        boolean hintGiven = model.getHint();
+        if (hintGiven) {
+            populateBoard(view.getBoardGrid());
+        } else {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+            alert.setTitle("Sin pistas");
+            alert.setHeaderText(null);
+            alert.setContentText("Te quedaste sin pistas :(");
+            alert.showAndWait();
+        }
+    }
+
     private void showRangeAlert() {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
         alert.setTitle("Número inválido");
@@ -66,9 +79,14 @@ public class GameController {
 
                 int value = model.getCell(row, col).getValue();
                 if (value != 0) {
-                    cell.setText(String.valueOf(value));
-                    cell.setDisable(true);
-                    cell.setStyle(cell.getStyle() + "-fx-text-fill: black; -fx-font-weight: bold; -fx-opacity: 1;");
+                    if (model.getCell(row, col).isLocked()) {
+                        cell.setText(String.valueOf(value));
+                        cell.setDisable(true);
+                        cell.setStyle(cell.getStyle() + "-fx-text-fill: black; -fx-font-weight: bold; -fx-opacity: 1;");
+                    } else if (model.getCell(row, col).isHighlighted()) {
+                        cell.setText(String.valueOf(value));
+                        cell.setStyle(cell.getStyle() + "-fx-text-fill: green; -fx-font-weight: bold;");
+                    }
                 }
 
                 int finalRow = row;
@@ -87,6 +105,7 @@ public class GameController {
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: black;");
                                 if (model.isBoardComplete()) {
                                     showWinAlert();
+                                    onActionRestartGame();
                                 }
                             } else {
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: red; -fx-border-width: 2px;");
@@ -100,4 +119,3 @@ public class GameController {
         }
     }
 }
-
