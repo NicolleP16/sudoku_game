@@ -90,6 +90,7 @@ public class BoardModel {
     }
 
 
+
     /**
      * Genera una solución de Sudoku usando el algoritmo de backtracking.
      * El método utiliza backtracking para llenar el tablero con valores válidos,
