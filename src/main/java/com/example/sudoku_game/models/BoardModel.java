@@ -83,11 +83,12 @@ public class BoardModel {
     public void clearBoard() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                board[row][col].setValue(0);
-                board[row][col].setLocked(false); // Equivalente a setEditable(true)
+                    board[row][col].setValue(0);
+                    board[row][col].setLocked(false); // Equivalente a setEditable(true)
             }
         }
     }
+
 
     /**
      * Genera una solución de Sudoku usando el algoritmo de backtracking.
@@ -167,7 +168,7 @@ public class BoardModel {
      * se marcan como bloqueadas (no editables).
      */
     private void makePuzzleWith2PerBox() {
-        // Primero limpiamos el tablero pero mantenemos la solución
+        // Se limpia el tablero pero se mantiene la solución
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 board[row][col].setValue(0);
@@ -200,46 +201,21 @@ public class BoardModel {
                 }
             }
         }
-    }
 
-
-    /**
-     * Elimina un número específico de celdas manteniendo la unicidad de la solución.
-     *
-     * @param count Número de celdas a eliminar
-     */
-    private void removeCells(int count) {
-        List<int[]> positions = new ArrayList<>();
-
-        // Recopilar todas las posiciones del tablero
+        //Mostrar todos los 1s de la solución
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                positions.add(new int[]{row, col});
-            }
-        }
-
-        // Mezclar las posiciones
-        java.util.Collections.shuffle(positions, random);
-
-        // Recorrer las posiciones mezcladas y eliminar celdas
-        for (int i = 0; i < count && i < positions.size(); i++) {
-            int row = positions.get(i)[0];
-            int col = positions.get(i)[1];
-
-            // Guardar el valor para comprobar la unicidad de la solución
-            int value = board[row][col].getValue();
-            board[row][col].setValue(0);
-
-            // Las celdas que quedan con valor se bloquean
-            for (int r = 0; r < BOARD_SIZE; r++) {
-                for (int c = 0; c < BOARD_SIZE; c++) {
-                    if (board[r][c].getValue() != 0) {
-                        board[r][c].setLocked(true);
-                    }
+                // Si en la solución hay un 1 y la celda está vacía, mostrarlo
+                if (solution[row][col] == 1 && board[row][col].getValue() == 0) {
+                    board[row][col].setValue(1);
+                    board[row][col].setLocked(true);
                 }
             }
         }
     }
+
+
+
 
     /**
      * Verifica si el tablero está completo y correcto.
@@ -284,24 +260,6 @@ public class BoardModel {
         return BOARD_SIZE;
     }
 
-
-    /**
-     * Obtiene la solución del tablero.
-     *
-     * @return Una matriz con la solución completa del tablero
-     */
-    public int[][] getSolution() {
-        return solution;
-    }
-
-    /**
-     * Permite cambiar el validador por otro que implemente la misma interfaz.
-     *
-     * @param validator Un objeto que implementa ValidationInterface
-     */
-    public void setValidator(ValidationInterface validator) {
-        this.validator = validator;
-    }
 
     /**
      * Proporciona una pista rellenando automáticamente una celda vacía.
