@@ -4,9 +4,8 @@ import com.example.sudoku_game.models.BoardModel;
 import com.example.sudoku_game.models.CellModel;
 
 /**
-        * Implementación estándar de la interfaz de validación para el Sudoku 6x6.
- * Proporciona la lógica necesaria para validar movimientos y verificar el estado
- * del tablero según las reglas del Sudoku 6x6 con cajas de 2x3.
+ * Implementación estándar de la interfaz de validación para el Sudoku 6x6
+ * @author Juan Pablo Escamilla
  */
 public class ValidationClass implements ValidationInterface {
 
@@ -112,6 +111,7 @@ public class ValidationClass implements ValidationInterface {
 
         return true;
     }
+
     /**
      * Implementación que detecta si una celda específica tiene conflictos
      * con otras celdas según las reglas del Sudoku.
@@ -248,4 +248,5 @@ public class ValidationClass implements ValidationInterface {
 
         return true;  // Todas las restricciones se cumplen
     }
+
 }

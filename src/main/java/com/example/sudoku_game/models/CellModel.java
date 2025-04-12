@@ -4,6 +4,8 @@ package com.example.sudoku_game.models;
  * Modelo que representa una celda individual del tablero de Sudoku.
  * Cada celda tiene una posición (fila y columna), un valor numérico,
  * y propiedades adicionales como su estado de bloqueo y resaltado.
+ *
+ * @author Juan Pablo Escamilla
  */
 public class CellModel {
     /** Índice de fila de la celda en el tablero (0-5) */
@@ -32,7 +34,7 @@ public class CellModel {
     public CellModel(int row, int col) {
         this.row = row;
         this.col = col;
-        this.value = 0; // 0 representa una celda vacía
+        this.value = 0;
         this.locked = false;
         this.isHighlighted = false;
     }
@@ -59,10 +61,12 @@ public class CellModel {
      * Obtiene el valor actual de la celda.
      *
      * @return Valor numérico (0-6, donde 0 representa una celda vacía)
+
      */
     public int getValue() {
         return value;
     }
+
 
 
     /**
@@ -72,7 +76,6 @@ public class CellModel {
      * @param value Nuevo valor para la celda (0-6)
      */
     public void setValue(int value) {
-        // Solo permitir valores de 0 (vacío) a 6
         if (value >= 0 && value <= 6) {
             this.value = value;
         }
