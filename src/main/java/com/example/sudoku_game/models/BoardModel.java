@@ -173,42 +173,6 @@ public class BoardModel {
         }
     }
 
-    /**
-     * Elimina un número específico de celdas manteniendo la unicidad de la solución
-     * Este método ya no se usa con la nueva implementación
-     */
-    private void removeCells(int count) {
-        List<int[]> positions = new ArrayList<>();
-
-        // Recopilar todas las posiciones del tablero
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                positions.add(new int[]{row, col});
-            }
-        }
-
-        // Mezclar las posiciones
-        java.util.Collections.shuffle(positions, random);
-
-        // Recorrer las posiciones mezcladas y eliminar celdas
-        for (int i = 0; i < count && i < positions.size(); i++) {
-            int row = positions.get(i)[0];
-            int col = positions.get(i)[1];
-
-            // Guardar el valor para comprobar la unicidad de la solución
-            int value = board[row][col].getValue();
-            board[row][col].setValue(0);
-
-            // Las celdas que quedan con valor se bloquean
-            for (int r = 0; r < BOARD_SIZE; r++) {
-                for (int c = 0; c < BOARD_SIZE; c++) {
-                    if (board[r][c].getValue() != 0) {
-                        board[r][c].setLocked(true);
-                    }
-                }
-            }
-        }
-    }
 
     /**
      * Verifica si el tablero está completo y correcto
@@ -229,21 +193,6 @@ public class BoardModel {
 
     public int getBoardSize() {
         return BOARD_SIZE;
-    }
-
-    /**
-     * Obtiene la solución del tablero
-     */
-    public int[][] getSolution() {
-        return solution;
-    }
-
-    /**
-     * Permite cambiar el validador por otro que implemente la misma interfaz
-     * @param validator Un objeto que implementa ValidationInterface
-     */
-    public void setValidator(ValidationInterface validator) {
-        this.validator = validator;
     }
 
     public boolean getHint() {
