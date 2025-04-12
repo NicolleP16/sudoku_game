@@ -200,46 +200,16 @@ public class BoardModel {
                 }
             }
         }
-    }
-
-
-    /**
-     * Elimina un número específico de celdas manteniendo la unicidad de la solución.
-     *
-     * @param count Número de celdas a eliminar
-     */
-    private void removeCells(int count) {
-        List<int[]> positions = new ArrayList<>();
-
-        // Recopilar todas las posiciones del tablero
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                positions.add(new int[]{row, col});
-            }
-        }
-
-        // Mezclar las posiciones
-        java.util.Collections.shuffle(positions, random);
-
-        // Recorrer las posiciones mezcladas y eliminar celdas
-        for (int i = 0; i < count && i < positions.size(); i++) {
-            int row = positions.get(i)[0];
-            int col = positions.get(i)[1];
-
-            // Guardar el valor para comprobar la unicidad de la solución
-            int value = board[row][col].getValue();
-            board[row][col].setValue(0);
-
-            // Las celdas que quedan con valor se bloquean
-            for (int r = 0; r < BOARD_SIZE; r++) {
-                for (int c = 0; c < BOARD_SIZE; c++) {
-                    if (board[r][c].getValue() != 0) {
-                        board[r][c].setLocked(true);
-                    }
-                }
+                 if (solution[row][col] == 1 & board[row][col].getValue() == 0){
+                    board[row][col].setValue(1);
+                    board[row][col].setLocked(true);
+                 }
             }
         }
     }
+
 
     /**
      * Verifica si el tablero está completo y correcto.

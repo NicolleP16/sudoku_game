@@ -40,6 +40,7 @@ public class GameController {
     public void onActionRestartGame() {
         model.generateBoard();
         populateBoard(view.getBoardGrid());
+        view.getCountSixes().setText(countSixes());
     }
 
     /**
@@ -50,6 +51,7 @@ public class GameController {
         boolean hintGiven = model.getHint();
         if (hintGiven) {
             populateBoard(view.getBoardGrid());
+            view.getCountSixes().setText(countSixes());
         } else {
             javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
             alert.setTitle("Sin pistas");
@@ -92,6 +94,20 @@ public class GameController {
         alert.showAndWait();
     }
 
+    public String countSixes(){
+        String var = "";
+        int count = 0;
+        for (int row = 0; row < model.getBoardSize(); row++) {
+            for (int col = 0; col < model.getBoardSize(); col++) {
+                if (model.getCell(row, col).getValue() == 6) {
+                    count++;
+                    var = String.valueOf(count);
+                }
+            }
+        }
+        return var;
+    }
+
     /**
      * Llena el tablero del Sudoku en la interfaz gráfica de acuerdo al estado actual del modelo.
      * También gestiona las entradas del usuario y valida los movimientos.
@@ -106,6 +122,7 @@ public class GameController {
                 cell.setPrefWidth(40);
                 cell.setPrefHeight(40);
                 cell.setStyle("-fx-font-size: 18px; -fx-alignment: center; -fx-border-color: black;");
+                countSixes();
 
                 int boxRow = row / 2;
                 int boxCol = col / 3;
@@ -146,6 +163,7 @@ public class GameController {
                             int intValue = Integer.parseInt(newValue);
                             if (validator.isValidMove(model, finalRow, finalCol, intValue)) {
                                 model.setCell(finalRow, finalCol, intValue);
+                                view.getCountSixes().setText(countSixes());
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: black; -fx-text-fill: blue;");
                                 if (model.isBoardComplete()) {
                                     showWinAlert();

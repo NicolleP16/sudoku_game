@@ -3,6 +3,7 @@ package com.example.sudoku_game.views;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,8 @@ public class GameView {
     private Stage stage;
     private GameController controller;
     private GridPane boardGrid;
+
+    private Label SixesCountLabel;
 
     /**
      * Constructor de la vista del juego.
@@ -52,9 +55,12 @@ public class GameView {
         Button HintButton = new Button("Pista");
         HintButton.setOnAction(e -> controller.onActionHintButton());
 
+        SixesCountLabel = new Label("Cantidad de seis: ");
+        SixesCountLabel.setText("Cantidad de seis: " + controller.countSixes());
+;
         HBox buttonsBox = new HBox(10); // Espacio horizontal entre botones
         buttonsBox.setAlignment(Pos.CENTER);
-        buttonsBox.getChildren().addAll(RestartButton, HintButton);
+        buttonsBox.getChildren().addAll(RestartButton, HintButton, SixesCountLabel);
 
         root.getChildren().addAll(boardGrid, buttonsBox);
         Scene scene = new Scene(root, 370, 320);
@@ -70,4 +76,6 @@ public class GameView {
     public GridPane getBoardGrid() {
         return boardGrid;
     }
+
+    public Label getCountSixes() { return SixesCountLabel; }
 }
