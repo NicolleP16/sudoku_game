@@ -12,6 +12,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Clase MenuController para el menú principal del juego Sudoku.
+ * Maneja las acciones asociadas a los botones del menú: iniciar el juego,
+ * ver las instrucciones o salir de la aplicación.
+ *
+ * @author Nicolle Paz
+ * @version 1.0.0
+ */
 public class MenuController {
 
     @FXML

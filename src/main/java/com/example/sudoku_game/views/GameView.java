@@ -9,17 +9,35 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import com.example.sudoku_game.controllers.GameController;
 
+/**
+ * Vista del juego Sudoku.
+ * Esta clase crea la interfaz gráfica del juego, incluyendo el tablero de Sudoku
+ * y los botones para reiniciar el juego y obtener pistas.
+ *
+ * @author Nicolle Paz
+ * @version 1.0.0
+ */
 public class GameView {
     private Stage stage;
     private GameController controller;
     private GridPane boardGrid;
 
+    /**
+     * Constructor de la vista del juego.
+     * Inicializa el controlador y la interfaz de usuario.
+     *
+     * @param stage la ventana principal donde se mostrará la vista del juego.
+     */
     public GameView(Stage stage) {
         this.stage = stage;
         this.controller = new GameController(this);
         initializeUI();
     }
 
+    /**
+     * Inicializa la interfaz gráfica del juego.
+     * Crea y organiza los elementos visuales del tablero de Sudoku y los botones de acción.
+     */
     private void initializeUI() {
         VBox root = new VBox(10);
         root.setAlignment(Pos.CENTER);
@@ -44,8 +62,12 @@ public class GameView {
         stage.setScene(scene);
     }
 
+    /**
+     * Obtiene la cuadrícula del tablero de Sudoku.
+     *
+     * @return el objeto GridPane que representa el tablero de Sudoku.
+     */
     public GridPane getBoardGrid() {
         return boardGrid;
     }
-
 }
