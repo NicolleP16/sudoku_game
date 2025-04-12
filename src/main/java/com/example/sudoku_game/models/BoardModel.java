@@ -1,5 +1,4 @@
 package com.example.sudoku_game.models;
-
 import com.example.sudoku_game.interfaces.ValidationInterface;
 import com.example.sudoku_game.interfaces.ValidationClass;
 
@@ -14,7 +13,7 @@ import java.util.Random;
  * El tablero está dividido en cajas de 2x3, con exactamente 2 números mostrados
  * por caja al inicio del juego.
  *
- * @author com.example.sudoku_game
+ * @author Juan Pablo Escamilla
  */
 public class BoardModel {
     private static final int BOARD_SIZE = 6;
@@ -203,6 +202,7 @@ public class BoardModel {
         }
     }
 
+
     /**
      * Elimina un número específico de celdas manteniendo la unicidad de la solución.
      *
@@ -283,6 +283,7 @@ public class BoardModel {
     public int getBoardSize() {
         return BOARD_SIZE;
     }
+
 
     /**
      * Obtiene la solución del tablero.

@@ -6,7 +6,7 @@ import com.example.sudoku_game.interfaces.ValidationInterface;
  * Esta clase actúa como intermediario entre la interfaz de usuario y el modelo del tablero,
  * gestionando el estado del juego, validando movimientos y controlando el flujo del juego.
  *
- * @author com.example.sudoku_game
+ * @author Juan Pablo Escamilla
  */
 public class LogicModel {
     private BoardModel board;

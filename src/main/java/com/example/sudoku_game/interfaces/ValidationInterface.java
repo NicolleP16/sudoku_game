@@ -2,19 +2,20 @@ package com.example.sudoku_game.interfaces;
 import com.example.sudoku_game.models.BoardModel;
 
 /**
- * Interfaz que define la estrategia de validación para el tablero de Sudoku.
- * Proporciona métodos para verificar la validez de movimientos y el estado del tablero.
+ * Interfaz que define la estrategia de validación para el tablero de Sudoku
+ * @author Juan Pablo Escamilla
  */
 public interface ValidationInterface {
 
     /**
-     * Verifica si es válido colocar un número en una posición específica.
+     * Verifica si es válido colocar un número en una posición específica
      *
-     * @param board El tablero de Sudoku a validar
-     * @param row Fila donde se quiere colocar el número (0-5)
-     * @param col Columna donde se quiere colocar el número (0-5)
-     * @param value Valor que se quiere colocar (1-6)
-     * @return {@code true} si el movimiento es válido, {@code false} en caso contrario
+     * @param board El tablero de Sudoku
+     * @param row   Fila donde se quiere colocar el número
+     * @param col   Columna donde se quiere colocar el número
+     * @param value Valor que se quiere colocar
+     * @return true si es válido, false en caso contrario
+
      */
     boolean isValidMove(BoardModel board, int row, int col, int value);
 
@@ -39,4 +40,5 @@ public interface ValidationInterface {
      * @return {@code true} si hay conflicto, {@code false} en caso contrario
      */
     boolean hasConflict(BoardModel board, int row, int col);
+
 }
