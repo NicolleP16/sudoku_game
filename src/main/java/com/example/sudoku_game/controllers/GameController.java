@@ -1,5 +1,6 @@
 package com.example.sudoku_game.controllers;
 
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -40,6 +41,7 @@ public class GameController {
     public void onActionRestartGame() {
         model.generateBoard();
         populateBoard(view.getBoardGrid());
+        view.getCountSixes().setText(countSixes());
     }
 
     /**
@@ -50,8 +52,10 @@ public class GameController {
         boolean hintGiven = model.getHint();
         if (hintGiven) {
             populateBoard(view.getBoardGrid());
+            view.getCountSixes().setText(countSixes());
+
         } else {
-            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Sin pistas");
             alert.setHeaderText(null);
             alert.setContentText("Te quedaste sin pistas :(");
@@ -59,11 +63,24 @@ public class GameController {
         }
     }
 
+    public String countSixes(){
+        String sixCounterString = "";
+        int sixCounterInt = 0, row, col;
+        for (row = 0; row < model.getBoardSize(); row++){
+            for (col = 0; col < model.getBoardSize(); col++){
+                if(model.getCell(row, col).getValue() == 6){
+                    sixCounterInt++;
+                    sixCounterString = String.valueOf(sixCounterInt);
+                }
+            }
+        }
+        return sixCounterString;
+    }
     /**
      * Muestra una alerta cuando el usuario ingresa un número fuera del rango válido (1 a 6).
      */
     private void showRangeAlert() {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Número inválido");
         alert.setHeaderText(null);
         alert.setContentText("Por favor ingrese un número del 1 al 6");
@@ -74,7 +91,7 @@ public class GameController {
      * Muestra una alerta cuando el usuario realiza un movimiento inválido (número repetido).
      */
     private void showInvalidMoveAlert() {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Movimiento inválido");
         alert.setHeaderText(null);
         alert.setContentText("Ese número ya está en la fila, columna o bloque");
@@ -85,7 +102,7 @@ public class GameController {
      * Muestra una alerta de felicitación cuando el jugador completa correctamente el tablero.
      */
     private void showWinAlert() {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("¡Felicidades!");
         alert.setHeaderText(null);
         alert.setContentText("¡Has completado correctamente el Sudoku!");
@@ -100,6 +117,7 @@ public class GameController {
      */
     public void populateBoard(GridPane boardGrid) {
         boardGrid.getChildren().clear();
+
         for (int row = 0; row < model.getBoardSize(); row++) {
             for (int col = 0; col < model.getBoardSize(); col++) {
                 TextField cell = new TextField();
@@ -146,6 +164,7 @@ public class GameController {
                             int intValue = Integer.parseInt(newValue);
                             if (validator.isValidMove(model, finalRow, finalCol, intValue)) {
                                 model.setCell(finalRow, finalCol, intValue);
+                                view.getCountSixes().setText(countSixes());
                                 cell.setStyle(cell.getStyle() + "-fx-border-color: black; -fx-text-fill: blue;");
                                 if (model.isBoardComplete()) {
                                     showWinAlert();

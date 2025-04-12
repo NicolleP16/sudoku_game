@@ -3,6 +3,7 @@ package com.example.sudoku_game.views;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,8 @@ public class GameView {
     private Stage stage;
     private GameController controller;
     private GridPane boardGrid;
+
+    private Label sixLabel;
 
     /**
      * Constructor de la vista del juego.
@@ -49,6 +52,9 @@ public class GameView {
         Button RestartButton = new Button("Reiniciar");
         RestartButton.setOnAction(e -> controller.onActionRestartGame());
 
+        sixLabel = new Label("Cantidad de 6s:");
+        sixLabel.setText(controller.countSixes());
+
         Button HintButton = new Button("Pista");
         HintButton.setOnAction(e -> controller.onActionHintButton());
 
@@ -56,10 +62,11 @@ public class GameView {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.getChildren().addAll(RestartButton, HintButton);
 
-        root.getChildren().addAll(boardGrid, buttonsBox);
+        root.getChildren().addAll(boardGrid, buttonsBox, sixLabel);
         Scene scene = new Scene(root, 370, 320);
         stage.setTitle("Sudoku");
         stage.setScene(scene);
+
     }
 
     /**
@@ -67,7 +74,10 @@ public class GameView {
      *
      * @return el objeto GridPane que representa el tablero de Sudoku.
      */
+    public Label getCountSixes() { return sixLabel; }
+
     public GridPane getBoardGrid() {
         return boardGrid;
     }
+
 }
