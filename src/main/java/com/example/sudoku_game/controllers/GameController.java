@@ -8,23 +8,44 @@ import com.example.sudoku_game.models.BoardModel;
 import com.example.sudoku_game.views.GameView;
 import com.example.sudoku_game.interfaces.ValidationClass;
 
+/**
+ * Clase GameController que maneja la lógica del juego y las interacciones
+ * del usuario en el juego de Sudoku. Conecta la vista con el modelo,
+ * valida las entradas del usuario y actualiza el tablero.
+ *
+ * @author Nicolle Paz
+ */
 public class GameController {
     private GameView view;
     private BoardModel model;
     private ValidationClass validator;
 
+    /**
+     * Constructor que inicializa el controlador con la vista dada.
+     * También crea el modelo y el validador, y genera el tablero inicial.
+     *
+     * @param view instancia de GameView utilizada en la interfaz gráfica.
+     */
     public GameController(GameView view) {
+
         this.view = view;
         this.model = new BoardModel();
         this.validator = new ValidationClass();
         model.generateBoard();
     }
 
+    /**
+     * Reinicia el juego generando un nuevo tablero y actualizando la vista.
+     */
     public void onActionRestartGame() {
         model.generateBoard();
         populateBoard(view.getBoardGrid());
     }
 
+    /**
+     * Proporciona una pista al usuario si hay disponibles.
+     * Si no hay pistas (para la última celda vacía), muestra una alerta informativa.
+     */
     public void onActionHintButton() {
         boolean hintGiven = model.getHint();
         if (hintGiven) {
@@ -38,6 +59,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Muestra una alerta cuando el usuario ingresa un número fuera del rango válido (1 a 6).
+     */
     private void showRangeAlert() {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
         alert.setTitle("Número inválido");
@@ -46,6 +70,9 @@ public class GameController {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una alerta cuando el usuario realiza un movimiento inválido (número repetido).
+     */
     private void showInvalidMoveAlert() {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
         alert.setTitle("Movimiento inválido");
@@ -54,6 +81,9 @@ public class GameController {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una alerta de felicitación cuando el jugador completa correctamente el tablero.
+     */
     private void showWinAlert() {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("¡Felicidades!");
@@ -62,6 +92,12 @@ public class GameController {
         alert.showAndWait();
     }
 
+    /**
+     * Llena el tablero del Sudoku en la interfaz gráfica de acuerdo al estado actual del modelo.
+     * También gestiona las entradas del usuario y valida los movimientos.
+     *
+     * @param boardGrid el GridPane que representa el tablero de Sudoku.
+     */
     public void populateBoard(GridPane boardGrid) {
         boardGrid.getChildren().clear();
         for (int row = 0; row < model.getBoardSize(); row++) {
