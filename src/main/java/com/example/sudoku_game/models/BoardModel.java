@@ -343,7 +343,6 @@ public class BoardModel {
         // Establecemos el valor y lo marcamos como resaltado
         board[row][col].setValue(correctValue);
         board[row][col].setHighlighted(true);
-        board[row][col].setLocked(true); // Opcional: bloquear la celda para que no se pueda modificar
 
         return true;
     }
