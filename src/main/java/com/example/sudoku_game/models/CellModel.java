@@ -138,4 +138,21 @@ public class CellModel {
     public String toString() {
         return value == 0 ? " " : String.valueOf(value);
     }
+
+    /**
+     * Establece esta celda como una pista, marcándola como resaltada y bloqueada.
+     * Este método es útil cuando se proporciona una pista al usuario.
+     */
+    public void setAsHint() {
+        this.setHighlighted(true);
+        this.setLocked(true); // Las pistas no deben ser modificables
+    }
+
+    /**
+     * Verifica si esta celda es una pista proporcionada por el sistema.
+     * @return true si la celda es una pista (resaltada y bloqueada)
+     */
+    public boolean isHint() {
+        return this.isHighlighted() && this.isLocked();
+    }
 }

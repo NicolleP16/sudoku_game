@@ -305,40 +305,46 @@ public class BoardModel {
 
     /**
      * Proporciona una pista rellenando automáticamente una celda vacía.
-     * Este método busca la primera celda vacía y la rellena con el valor correcto
-     * de la solución, marcándola como resaltada.
+     * Este método busca una celda vacía y la rellena con el valor correcto
+     * de la solución, marcándola como resaltada. Respeta los valores ya
+     * ingresados por el usuario y no completa el tablero automáticamente.
      *
-     * @return {@code true} si se proporcionó una pista, {@code false} si solo queda una celda vacía
-     * o no hay celdas vacías
+     * @return {@code true} si se proporcionó una pista, {@code false} si no hay celdas vacías disponibles
+     * o si solo queda una celda por llenar
      */
     public boolean getHint() {
-        int emptyCount = 0;
+        // Primero verificamos cuántas celdas vacías hay
+        List<int[]> emptyCells = new ArrayList<>();
 
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                if (board[row][col].getValue() == 0) {
-                    emptyCount++;
-                }
-            }
-        }
-
-        if (emptyCount == 1) {
-            return false;
-        }
-
+        // Recopilamos todas las celdas vacías (no bloqueadas)
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 CellModel cell = board[row][col];
-                if (cell.getValue() == 0) {
-                    int correctValue = solution[row][col];
-                    cell.setValue(correctValue);
-                    cell.setHighlighted(true);
-                    return true;
+                if (cell.getValue() == 0 && !cell.isLocked()) {
+                    emptyCells.add(new int[]{row, col});
                 }
             }
         }
 
+        // Si hay 0 o 1 celdas vacías, no damos pista
+        // Esto evita completar automáticamente el tablero
+        if (emptyCells.size() <= 1) {
+            return false;
+        }
 
-        return false;
+        // Elegimos una celda vacía aleatoria para dar una pista
+        int[] randomCell = emptyCells.get(random.nextInt(emptyCells.size()));
+        int row = randomCell[0];
+        int col = randomCell[1];
+
+        // Obtenemos el valor correcto de la solución
+        int correctValue = solution[row][col];
+
+        // Establecemos el valor y lo marcamos como resaltado
+        board[row][col].setValue(correctValue);
+        board[row][col].setHighlighted(true);
+        board[row][col].setLocked(true); // Opcional: bloquear la celda para que no se pueda modificar
+
+        return true;
     }
 }

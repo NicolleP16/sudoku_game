@@ -79,13 +79,21 @@ public class GameController {
 
                 int value = model.getCell(row, col).getValue();
                 if (value != 0) {
+                    cell.setText(String.valueOf(value));
+
                     if (model.getCell(row, col).isLocked()) {
-                        cell.setText(String.valueOf(value));
+                        // Celdas bloqueadas (originales del tablero)
                         cell.setDisable(true);
                         cell.setStyle(cell.getStyle() + "-fx-text-fill: black; -fx-font-weight: bold; -fx-opacity: 1;");
                     } else if (model.getCell(row, col).isHighlighted()) {
-                        cell.setText(String.valueOf(value));
+                        // Celdas resaltadas (pistas)
                         cell.setStyle(cell.getStyle() + "-fx-text-fill: green; -fx-font-weight: bold;");
+                        // Opcional: también deshabilitar las pistas para que no se puedan editar
+                        cell.setDisable(true);
+                        cell.setStyle(cell.getStyle() + "-fx-opacity: 1;");
+                    } else {
+                        // Valores ingresados por el usuario (no resaltados, no bloqueados)
+                        cell.setStyle(cell.getStyle() + "-fx-text-fill: blue;");
                     }
                 }
 
@@ -102,7 +110,7 @@ public class GameController {
                             int intValue = Integer.parseInt(newValue);
                             if (validator.isValidMove(model, finalRow, finalCol, intValue)) {
                                 model.setCell(finalRow, finalCol, intValue);
-                                cell.setStyle(cell.getStyle() + "-fx-border-color: black;");
+                                cell.setStyle(cell.getStyle() + "-fx-border-color: black; -fx-text-fill: blue;");
                                 if (model.isBoardComplete()) {
                                     showWinAlert();
                                     onActionRestartGame();
