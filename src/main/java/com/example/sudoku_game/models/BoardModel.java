@@ -1,5 +1,4 @@
 package com.example.sudoku_game.models;
-
 import com.example.sudoku_game.interfaces.ValidationInterface;
 import com.example.sudoku_game.interfaces.ValidationClass;
 
@@ -9,6 +8,7 @@ import java.util.Random;
 
 /**
  * Modelo que representa el tablero de Sudoku 6x6
+ * @author Juan Pablo Escamilla
  */
 public class BoardModel {
     private static final int BOARD_SIZE = 6;

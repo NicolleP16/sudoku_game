@@ -5,6 +5,7 @@ import com.example.sudoku_game.models.CellModel;
 
 /**
  * Implementación estándar de la interfaz de validación para el Sudoku 6x6
+ *  * @author Juan Pablo Escamilla
  */
 public class ValidationClass implements ValidationInterface {
 
@@ -99,123 +100,5 @@ public class ValidationClass implements ValidationInterface {
         }
 
         return true;
-    }
-
-    @Override
-    public boolean hasConflict(BoardModel board, int row, int col) {
-        CellModel cell = board.getCell(row, col);
-        int value = cell.getValue();
-
-        // Si la celda está vacía o bloqueada, no hay conflicto
-        if (value == 0 || cell.isLocked()) {
-            return false;
-        }
-
-        // Temporalmente quitar el valor para validar
-        int originalValue = value;
-        cell.setValue(0);
-
-        // Verificar si el valor original causa conflicto
-        boolean isValid = isValidMove(board, row, col, originalValue);
-
-        // Restaurar el valor
-        cell.setValue(originalValue);
-
-        // Si no es válido, hay conflicto
-        return !isValid;
-    }
-
-    /**
-     * Método auxiliar para verificar si una fila contiene el valor especificado
-     */
-    private boolean rowContains(BoardModel board, int row, int value) {
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            if (board.getCell(row, col).getValue() == value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Método auxiliar para verificar si una columna contiene el valor especificado
-     */
-    private boolean colContains(BoardModel board, int col, int value) {
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            if (board.getCell(row, col).getValue() == value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Método auxiliar para verificar si una caja contiene el valor especificado
-     */
-    private boolean boxContains(BoardModel board, int boxRow, int boxCol, int value) {
-        int rowStart = boxRow * BOX_HEIGHT;
-        int colStart = boxCol * BOX_WIDTH;
-
-        for (int row = rowStart; row < rowStart + BOX_HEIGHT; row++) {
-            for (int col = colStart; col < colStart + BOX_WIDTH; col++) {
-                if (board.getCell(row, col).getValue() == value) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Verifica si todas las restricciones de Sudoku se cumplen
-     */
-    public boolean checkAllConstraints(BoardModel board) {
-        // Verificar filas
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            boolean[] seen = new boolean[BOARD_SIZE + 1];
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                int value = board.getCell(row, col).getValue();
-                if (value != 0) {
-                    if (seen[value]) {
-                        return false;  // Valor duplicado en la fila
-                    }
-                    seen[value] = true;
-                }
-            }
-        }
-
-        // Verificar columnas
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            boolean[] seen = new boolean[BOARD_SIZE + 1];
-            for (int row = 0; row < BOARD_SIZE; row++) {
-                int value = board.getCell(row, col).getValue();
-                if (value != 0) {
-                    if (seen[value]) {
-                        return false;  // Valor duplicado en la columna
-                    }
-                    seen[value] = true;
-                }
-            }
-        }
-
-        // Verificar cajas 2x3
-        for (int boxRow = 0; boxRow < BOARD_SIZE / BOX_HEIGHT; boxRow++) {
-            for (int boxCol = 0; boxCol < BOARD_SIZE / BOX_WIDTH; boxCol++) {
-                boolean[] seen = new boolean[BOARD_SIZE + 1];
-                for (int row = boxRow * BOX_HEIGHT; row < (boxRow + 1) * BOX_HEIGHT; row++) {
-                    for (int col = boxCol * BOX_WIDTH; col < (boxCol + 1) * BOX_WIDTH; col++) {
-                        int value = board.getCell(row, col).getValue();
-                        if (value != 0) {
-                            if (seen[value]) {
-                                return false;  // Valor duplicado en la caja
-                            }
-                            seen[value] = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return true;  // Todas las restricciones se cumplen
     }
 }
