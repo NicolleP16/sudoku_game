@@ -7,7 +7,12 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Modelo que representa el tablero de Sudoku 6x6
+ * Modelo que representa el tablero de Sudoku de 6x6.
+ * Esta clase se encarga de la gestión del tablero, incluyendo la generación
+ * del juego, validación de movimientos y proporcionando pistas.
+ * El tablero está dividido en cajas de 2x3, con exactamente 2 números mostrados
+ * por caja al inicio del juego.
+ *
  * @author Juan Pablo Escamilla
  */
 public class BoardModel {
@@ -21,6 +26,11 @@ public class BoardModel {
     private int[][] solution;
     private ValidationInterface validator;
 
+    /**
+     * Constructor que inicializa un nuevo tablero de Sudoku.
+     * Crea un nuevo tablero vacío, establece el validador predeterminado
+     * y genera un nuevo juego.
+     */
     public BoardModel() {
         random = new Random();
         board = new CellModel[BOARD_SIZE][BOARD_SIZE];
@@ -29,7 +39,14 @@ public class BoardModel {
     }
 
     /**
-     * Inicializa el tablero creando objetos CellModel para cada celda y generando un nuevo juego
+     * Inicializa el tablero creando objetos CellModel para cada celda y generando un nuevo juego.
+     * Este método realiza las siguientes acciones:
+     *   - Crea objetos CellModel para cada celda si no existen</li>
+     *   - Limpia el tablero</li>
+     *   - Genera una solución válida usando backtracking</li>
+     *   - Guarda el estado inicial (solución completa)</li>
+     *   - Crea el puzzle mostrando exactamente 2 números por caja</li>
+
      */
     public void initializeBoard() {
         // Crear los objetos CellModel si no existen
@@ -60,7 +77,8 @@ public class BoardModel {
     }
 
     /**
-     * Limpia completamente el tablero
+     * Limpia completamente el tablero.
+     * Establece todos los valores de las celdas a 0 y las marca como no bloqueadas (editables).
      */
     public void clearBoard() {
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -72,7 +90,13 @@ public class BoardModel {
     }
 
     /**
-     * Genera una solución usando backtracking desde una posición específica
+     * Genera una solución de Sudoku usando el algoritmo de backtracking.
+     * El método utiliza backtracking para llenar el tablero con valores válidos,
+     * comenzando desde la posición especificada.
+     *
+     * @param row Fila inicial para comenzar la generación
+     * @param col Columna inicial para comenzar la generación
+     * @return {@code true} si se encontró una solución válida, {@code false} en caso contrario
      */
     private boolean generateSolution(int row, int col) {
         // Si hemos llegado al final del tablero, la solución está completa
@@ -115,7 +139,8 @@ public class BoardModel {
     }
 
     /**
-     * Genera un nuevo tablero de Sudoku
+     * Genera un nuevo tablero de Sudoku.
+     * Este método es un wrapper para {@link #initializeBoard()}.
      */
     public void generateBoard() {
         // Inicializar el tablero
@@ -123,7 +148,8 @@ public class BoardModel {
     }
 
     /**
-     * Guarda el estado inicial (solución completa) del tablero
+     * Guarda el estado inicial (solución completa) del tablero.
+     * Este método copia los valores actuales del tablero a la matriz de solución.
      */
     private void saveInitialState() {
         solution = new int[BOARD_SIZE][BOARD_SIZE];
@@ -135,7 +161,10 @@ public class BoardModel {
     }
 
     /**
-     * Crea el puzzle dejando exactamente 2 números por cada caja de 2x3
+     * Crea el puzzle dejando exactamente 2 números por cada caja de 2x3.
+     * Este método limpia el tablero y luego selecciona aleatoriamente 2 celdas
+     * en cada caja para mostrar los valores de la solución. Las celdas seleccionadas
+     * se marcan como bloqueadas (no editables).
      */
     private void makePuzzleWith2PerBox() {
         // Primero limpiamos el tablero pero mantenemos la solución
@@ -175,26 +204,113 @@ public class BoardModel {
 
 
     /**
-     * Verifica si el tablero está completo y correcto
+     * Elimina un número específico de celdas manteniendo la unicidad de la solución.
+     *
+     * @param count Número de celdas a eliminar
+     */
+    private void removeCells(int count) {
+        List<int[]> positions = new ArrayList<>();
+
+        // Recopilar todas las posiciones del tablero
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                positions.add(new int[]{row, col});
+            }
+        }
+
+        // Mezclar las posiciones
+        java.util.Collections.shuffle(positions, random);
+
+        // Recorrer las posiciones mezcladas y eliminar celdas
+        for (int i = 0; i < count && i < positions.size(); i++) {
+            int row = positions.get(i)[0];
+            int col = positions.get(i)[1];
+
+            // Guardar el valor para comprobar la unicidad de la solución
+            int value = board[row][col].getValue();
+            board[row][col].setValue(0);
+
+            // Las celdas que quedan con valor se bloquean
+            for (int r = 0; r < BOARD_SIZE; r++) {
+                for (int c = 0; c < BOARD_SIZE; c++) {
+                    if (board[r][c].getValue() != 0) {
+                        board[r][c].setLocked(true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Verifica si el tablero está completo y correcto.
+     * Utiliza el validador para comprobar si el estado actual del tablero es válido.
+     *
+     * @return {@code true} si el tablero está completo y es válido, {@code false} en caso contrario
      */
     public boolean isBoardComplete() {
         return validator.isValidBoard(this);
     }
 
+    /**
+     * Obtiene la celda en la posición especificada.
+     *
+     * @param row Índice de la fila
+     * @param col Índice de la columna
+     * @return La celda en la posición [row][col]
+     */
     public CellModel getCell(int row, int col) {
         return board[row][col];
     }
 
+    /**
+     * Establece el valor de una celda si no está bloqueada.
+     *
+     * @param row Índice de la fila
+     * @param col Índice de la columna
+     * @param value Valor a establecer en la celda
+     */
     public void setCell(int row, int col, int value) {
         if (!board[row][col].isLocked()) {
             board[row][col].setValue(value);
         }
     }
 
+    /**
+     * Obtiene el tamaño del tablero.
+     *
+     * @return El tamaño del tablero (número de filas/columnas)
+     */
     public int getBoardSize() {
         return BOARD_SIZE;
     }
 
+
+    /**
+     * Obtiene la solución del tablero.
+     *
+     * @return Una matriz con la solución completa del tablero
+     */
+    public int[][] getSolution() {
+        return solution;
+    }
+
+    /**
+     * Permite cambiar el validador por otro que implemente la misma interfaz.
+     *
+     * @param validator Un objeto que implementa ValidationInterface
+     */
+    public void setValidator(ValidationInterface validator) {
+        this.validator = validator;
+    }
+
+    /**
+     * Proporciona una pista rellenando automáticamente una celda vacía.
+     * Este método busca la primera celda vacía y la rellena con el valor correcto
+     * de la solución, marcándola como resaltada.
+     *
+     * @return {@code true} si se proporcionó una pista, {@code false} si solo queda una celda vacía
+     * o no hay celdas vacías
+     */
     public boolean getHint() {
         int emptyCount = 0;
 
